@@ -1,61 +1,108 @@
+import { useState } from 'react'
+
 export default function Page() {
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [account, setAccount] = useState('')
+  const [address, setAddress] = useState('')
+  const [annualSalary, setAnnualSalary] = useState(0)
+  const [age, setAge] = useState(0)
+
+  const submitData = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    alert("data sent ")
+    
+    // try {
+    //   const body = { firstName, lastName, address, annualSalary, age }
+    //   await fetch(`/api/post`, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(body),
+    //   })
+    // } catch (error) {
+    //   console.error(error)
+    // }
+  }
+
+  const clearData = (e: any) => {
+    e.preventDefault()
+
+    setFirstName('')
+    setLastName('')
+    setAccount('')
+    setAddress('')
+    setAnnualSalary(0)
+    setAge(0)
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-5 px-20 py-20">
       <div className="shadow-xl card w-96 bg-base-100">
-        <div className="card-body">
+        <form className="card-body" onSubmit={submitData}>
           <h2 className="card-title">Fill in the user details</h2>
-          <p>First name</p>
+          <label>First name</label>
           <input
             type="text"
             placeholder="First name"
             className="w-full max-w-xs input input-bordered"
+            required
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
-          <p>Last name</p>
+          <label>Last name</label>
           <input
             type="text"
             placeholder="Last name"
             className="w-full max-w-xs input input-bordered"
+            required
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
-          <p>Address</p>
+          <label>Address</label>
           <input
             type="text"
             placeholder="Address"
             className="w-full max-w-xs input input-bordered"
+            required
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
-          <p>Annual salary</p>
+          <label>Annual salary</label>
           <input
-            type="text"
+            type="number"
             placeholder="Annual salary"
             className="w-full max-w-xs input input-bordered"
+            required
+            value={annualSalary}
+            onChange={(e) => setAnnualSalary(e.target.valueAsNumber)}
           />
-          <p>Age</p>
+          <label>Age</label>
           <input
-            type="text"
+            type="number"
             placeholder="Age"
             className="w-full max-w-xs input input-bordered"
+            required
+            value={age}
+            onChange={(e) => setAge(e.target.valueAsNumber)}
           />
-          <p>Account</p>
+          <label>Account</label>
           <select className="w-full max-w-xs select select-bordered">
             <option disabled selected>
-              Who shot first?
+              Account
             </option>
-            <option>Han Solo</option>
-            <option>Greedo</option>
+            <option>Simple deposit</option>
+            <option>Long term deposit</option>
+            <option>Current account</option>
           </select>
-          <p>Special customer</p>
-          <div className="flex items-center justify-center w-full gap-4 py-2">
-            <div>
-              <p>Yes</p> <input type="radio" name="radio-1" className="radio" />
-            </div>
-            <div>
-              <p>No</p> <input type="radio" name="radio-1" className="radio" />
-            </div>
+          <div className="justify-end py-5 card-actions">
+            <button className="btn btn-primary" onSubmit={submitData}>
+              Create
+            </button>
+            <button className="btn btn-primary" onClick={clearData}>
+              Clear
+            </button>
           </div>
-          <div className="justify-end card-actions">
-            <button className="btn btn-primary">Create</button>
-            <button className="btn btn-primary">Clear</button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   )
